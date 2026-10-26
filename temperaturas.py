@@ -6,10 +6,17 @@ maxima = max(temperaturas)
 minima = min(temperaturas)
 
 # Mostrar temperaturas
-print("Temperaturas: ", temperaturas)
+print("Temperaturas:", temperaturas)
 # Mostrar media
-print("Temperatura media: ", media)
+print("Temperatura media:", media)
 # Mostrar máxima
-print("Temperatura máxima: ", maxima)
+print("Temperatura máxima:", maxima)
 # Mostrar mínima
-print("Temperatura mínima: ", minima)
+print("Temperatura mínima:", minima)
+
+umbral_calor = 25
+
+if maxima > umbral_calor:
+    print("Aviso: Se ha superado el umbral de calor:", umbral_calor)
+else:
+    print("Temperaturas correctas")
