@@ -1,8 +1,15 @@
+from analisis import (
+    calcular_media
+)
+
 temperaturas = [18.5, 21.2, 19.8, 23.1, 25.4]
 
 # Calcular media
-media = sum(temperaturas) / len(temperaturas)
+# media = sum(temperaturas) / len(temperaturas)
+media = calcular_media(temperaturas)
+# Calcular máxima
 maxima = max(temperaturas)
+# Calcular mínima
 minima = min(temperaturas)
 
 # Mostrar temperaturas
