@@ -1,8 +1,14 @@
 from analisis import (
-    calcular_media
+    calcular_media,
+    contador_umbral,
+    resumen_temperaturas
 )
 
-temperaturas = [18.5, 21.2, 19.8, 23.1, 25.4]
+temperaturas = [30.1, 31.5, 29.8, 32.0, 33.4, 28.5]
+
+# Informe de temperaturas
+print("=== INFORME DE TEMPERATURAS ===")
+print("Nº de registros:", len(temperaturas))
 
 # Calcular media
 # media = sum(temperaturas) / len(temperaturas)
@@ -21,6 +27,7 @@ print("Temperatura máxima:", maxima)
 # Mostrar mínima
 print("Temperatura mínima:", minima)
 
+# Días de calor superior a 25º
 umbral_calor = 25
 
 if maxima > umbral_calor:
@@ -28,22 +35,23 @@ if maxima > umbral_calor:
 else:
     print("Temperaturas correctas")
 
-contador = 0
+# Nº de días con temperaturas superiores a 20º
+umbral_temperatura = 20
+contador = contador_umbral(temperaturas, umbral_temperatura)
+print ("Días por encima de 20 grados:", contador)
 
-for t in temperaturas:
-    if t > 20:
-        contador += 1
-
-print ("Día por encima de 20 grados:", contador)
-
+# Evolución diaria
 for i in range(1, len(temperaturas)):
     diferencia = temperaturas[i] - temperaturas[i - 1]
 
     if diferencia > 0:
-        tendencia = "sube"
+        tendencia = "🔺 sube"
     elif diferencia < 0:
-        tendencia = "baja"
+        tendencia = "🔻 baja"
     else:
-        tendencia = "igual"
+        tendencia = "➖ igual"
 
-    print(f"Día {i} -> día {i + 1} {tendencia} ({round(diferencia, 2)}) grados")
+    print(f"Día {i} -> día {i + 1}: {tendencia} ({round(diferencia, 2)} ºC)")
+
+print("----- Clasificación temperaturas ------")
+print(resumen_temperaturas(temperaturas))
