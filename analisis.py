@@ -5,11 +5,16 @@ def calcular_media(lista):
 # Contador mayores de umbral
 def contador_umbral(lista, umbral):
     contador = 0
+    mayor20 = 0
     for t in lista:
         if t > umbral:
             contador += 1
+            mayor20 += t
 
-    return contador
+    if contador > 0:
+        return contador, mayor20 / contador
+    else:
+        return contador, 999
 
 def clasificar_temperatura(t):
     if t < 20:

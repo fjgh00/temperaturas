@@ -37,12 +37,15 @@ else:
 
 # Nº de días con temperaturas superiores a 20º
 umbral_temperatura = 20
-contador = contador_umbral(temperaturas, umbral_temperatura)
-print ("Días por encima de 20 grados:", contador)
+contador, media20 = contador_umbral(temperaturas, umbral_temperatura)
+print("Nº de días por encima de 20ºC.......:", contador)
+print(f"Media de los días por encima de 20ºC: {round(media20, 2)} ºC")
 
 # Evolución diaria
+diferencia_maxima = 0
 for i in range(1, len(temperaturas)):
     diferencia = temperaturas[i] - temperaturas[i - 1]
+    diferencia_maxima = diferencia if diferencia > diferencia_maxima else diferencia_maxima
 
     if diferencia > 0:
         tendencia = "🔺 sube"
@@ -52,6 +55,7 @@ for i in range(1, len(temperaturas)):
         tendencia = "➖ igual"
 
     print(f"Día {i} -> día {i + 1}: {tendencia} ({round(diferencia, 2)} ºC)")
+    print(f"Diferencia máxima: {round(diferencia_maxima, 2)} ºC")
 
 print("----- Clasificación temperaturas ------")
 print(resumen_temperaturas(temperaturas))
