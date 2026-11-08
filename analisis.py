@@ -2,6 +2,14 @@
 def calcular_media(lista):
     return sum(lista) / len(lista)
 
+# Calcular máxima
+def calcular_maxima(lista):
+    return max(lista)
+
+# Calcular mínima
+def calcular_minima(lista):
+    return min(lista)
+
 # Contador mayores de umbral
 def contador_umbral(lista, umbral):
     contador = 0

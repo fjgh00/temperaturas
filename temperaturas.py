@@ -1,10 +1,12 @@
 from analisis import (
     calcular_media,
+    calcular_maxima,
+    calcular_minima,
     contador_umbral,
     resumen_temperaturas
 )
 
-temperaturas = [30.1, 31.5, 29.8, 32.0, 33.4, 28.5]
+temperaturas = [18.5, 21.2, 19.8, 23.1, 25.4]
 
 # Informe de temperaturas
 print("=== INFORME DE TEMPERATURAS ===")
@@ -14,9 +16,9 @@ print("Nº de registros:", len(temperaturas))
 # media = sum(temperaturas) / len(temperaturas)
 media = calcular_media(temperaturas)
 # Calcular máxima
-maxima = max(temperaturas)
+maxima = calcular_maxima(temperaturas)
 # Calcular mínima
-minima = min(temperaturas)
+minima = calcular_minima(temperaturas)
 
 # Mostrar temperaturas
 print("Temperaturas:", temperaturas)
