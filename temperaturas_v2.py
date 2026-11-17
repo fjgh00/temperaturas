@@ -9,7 +9,14 @@ from analisis_v2 import (
     filtrar_por_ciudad,
     dia_mas_caluroso,
     media_por_ciudad,
-    maxima_por_ciudad
+    maxima_por_ciudad,
+    extraer_humedad,
+    humedad_maxima,
+    humedad_media,
+    humedad_minima,
+    filtrar,
+    ranking_temperaturas,
+    resumen_json
 )
 
 # Variable para ajustar cadenas en print
@@ -19,24 +26,35 @@ for i in range(len(temperaturas)):
     if maxlen < len(temperatura["ciudad"]):
         maxlen = len(temperatura["ciudad"])
 
-# Extraemos la columna de temperaturas
-solo_temperatura = extraer_temperatura(temperaturas)
 print("#---------- TEMPERATURAS ----------#")
-print("Número de registros:", len(solo_temperatura))
-print("Día\t\tCiudad\t\t Temperatura")
+print("Número de registros:", len(temperaturas))
+print("Día\tCiudad\t    Temperatura\t      Humedad")
 for i in range(len(temperaturas)):
     temperatura = temperaturas[i]
-    print(temperatura["dia"], end="\t\t")
-    print(temperatura["ciudad"].ljust(maxlen), end="\t\t")
-    print(temperatura["temperatura"])
+    print(temperatura["dia"], end = "\t")
+    print(temperatura["ciudad"].ljust(maxlen), end = "\t")
+    print(temperatura["temperatura"], end = "\t\t")
+    print(temperatura["humedad"])
 print()
 
+# Extraemos la columna de temperaturas
+solo_temperatura = extraer_temperatura(temperaturas)
 # Media
 print("\nTemperatura media.:", calcular_media(solo_temperatura))
 # Máxima
 print("Temperatura máxima:", calcular_maxima(solo_temperatura))
 # Mínima
 print("Temperatura mínima:", calcular_minima(solo_temperatura))
+
+print("\n#---------- HUMEDAD ----------#")
+# Extraemos la columna de humedad
+solo_humedad = extraer_humedad(temperaturas)
+# Media
+print("Humedad media.:", humedad_media(solo_humedad))
+# Máxima
+print("Humedad máxima:", humedad_maxima(solo_humedad))
+# Mínima
+print("Humedad mínima:", humedad_minima(solo_humedad))
 
 # Día más caluroso
 mas_caluroso = dia_mas_caluroso(temperaturas)
@@ -51,8 +69,28 @@ print("\n# ----- Temperatura media por ciudad ----- #")
 medias = media_por_ciudad(temperaturas)
 for ciudad, media in medias.items():
     print("Ciudad:", ciudad, "-->", round(media, 2))
+# Media por ciudad
+print("\n# ----- Temperatura media por ciudad ordenado ----- #")
+medias = ranking_temperaturas(temperaturas)
+for c in medias:
+    print("Ciudad:", c[0].ljust(maxlen), "-->", round(c[1], 2))
 # Máxima por ciudad
 print("\n# ----- Temperatura máxima por ciudad ----- #")
 maximas = maxima_por_ciudad(temperaturas)
 for ciudad, maxima in maximas.items():
     print("Ciudad:", ciudad, "-->", round(maxima, 2))
+
+print("\n#----- TEMPERATURAS UMBRAL -----#")
+ciudad = filtrar(temperaturas, "Huesca", 20)
+print("Número de registros:", len(ciudad))
+print("Día\tCiudad\t    Temperatura\t      Humedad")
+for i in range(len(ciudad)):
+    temperatura = ciudad[i]
+    print(temperatura["dia"], end = "\t")
+    print(temperatura["ciudad"].ljust(maxlen), end = "\t")
+    print(temperatura["temperatura"], end = "\t\t")
+    print(temperatura["humedad"])
+print()
+
+print("# ----- Resumen JSON ----- #")
+print(resumen_json(temperaturas))

@@ -1,13 +1,25 @@
-# Calcular media
+# Calcular temperatura media
 def calcular_media(lista):
     return sum(lista) / len(lista)
 
-# Calcular máxima
+# Calcular temperatura máxima
 def calcular_maxima(lista):
     return max(lista)
 
-# Calcular mínima
+# Calcular temperatura mínima
 def calcular_minima(lista):
+    return min(lista)
+
+# Calcular humedad media
+def humedad_media(lista):
+    return sum(lista) / len(lista)
+
+# Calcular humedad máxima
+def humedad_maxima(lista):
+    return max(lista)
+
+# Calcular humedad mínima
+def humedad_minima(lista):
     return min(lista)
 
 # Contador mayores de umbral
@@ -44,7 +56,12 @@ def extraer_temperatura(registros):
     valores = []
     for r in registros:
         valores.append(r["temperatura"])
+    return valores
 
+def extraer_humedad(registros):
+    valores = []
+    for r in registros:
+        valores.append(r["humedad"])
     return valores
 
 def filtrar_por_ciudad(registros, ciudad):
@@ -82,4 +99,25 @@ def maxima_por_ciudad(registros):
     resultado = {}
     for ciudad, valores in grupos.items():
         resultado[ciudad] = calcular_maxima(valores)
+    return resultado
+
+def filtrar(registros, ciudad, umbral):
+    resultado = []
+    ciudad = filtrar_por_ciudad(registros, ciudad)
+    for c in ciudad:
+        if c["temperatura"] > umbral:
+            resultado.append(c)
+    return resultado
+
+def ranking_temperaturas(registros):
+    medias = media_por_ciudad(registros)
+    ranking = sorted(medias.items(), key = lambda x: x[1], reverse = True)
+    return ranking
+
+def resumen_json(registros):
+    resultado = {
+        "n_registros": len(registros),
+        "media_global": round(calcular_media(extraer_temperatura(registros)), 2),
+        "media_por_ciudad": media_por_ciudad(registros)
+    }
     return resultado
