@@ -1,4 +1,4 @@
-from datos import temperaturas
+from datos_v2 import temperaturas
 from analisis_v2 import (
     calcular_media,
     calcular_maxima,
